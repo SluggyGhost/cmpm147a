@@ -1,24 +1,9 @@
-// project.js - purpose and description here
+// project.js - integrate the working generator from Glitch.com
 // Author: Joshua Acosta
 // Date: 4/7/2025
 
-// NOTE: This is how we might start a basic JavaaScript OOP project
-
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-
-// define a class
-class MyProjectClass {
-  // constructor function
-  constructor(param1, param2) {
-    // set properties using 'this' keyword
-    this.property1 = param1;
-    this.property2 = param2;
-  }
-  
-  // define a method
-  myMethod() {
-    const fillers = {
+function main() {
+  const fillers = {
       weather:["clear", "overcast", "cloudy", "rainy", "stormy", "windy", "snowy"],
       season:["winter", "spring", "summer", "fall"],
       timeOfDay:["morning", "afternoon", "evening", "night"],
@@ -33,54 +18,44 @@ class MyProjectClass {
       phrase:["We need more men.", "Your rent is due. Pay up.", "I need a freaking drink.", "Do you have any grapes?", "What year is it?", "What city is this?", "Hi. I'm robbing this place.", "Do you know anyone who buys gold teeth?", "What's on the menu?", "DO. YOU. SPEAK. ENGLISH?", "Are there any dragons around here?", "Are there any rich guys around here?", "I'm looking for some people for a job. Any recommendations?", "I'd like to buy this bar.", "Ok, I'm NEVER doing that again."]
     };
     
-    const template = `It's a $weather $season $timeOfDay. The tavern is $activity.
-    
-    The door $opens. The crowd $reacts.
-    
-    A $person with $mark, wearing $accessory enters.
-    
-    They $action and then $move to the counter, saying "$phrase"
-    
-    `;
-    
-    
-    // STUDENTS: You don't need to edit code below this line.
-    
-    const slotPattern = /\$(\w+)/;
-    
-    function replacer(match, name) {
-      let options = fillers[name];
-      if (options) {
-        return options[Math.floor(Math.random() * options.length)];
-      } else {
-        return `<UNKNOWN:${name}>`;
-      }
+  const template = `It's a $weather $season $timeOfDay. The tavern is $activity.
+  
+  The door $opens. The crowd $reacts.
+  
+  A $person with $mark, wearing $accessory enters.
+  
+  They $action and then $move to the counter, saying "$phrase"
+  
+  `;
+  
+  
+  // STUDENTS: You don't need to edit code below this line.
+  
+  const slotPattern = /\$(\w+)/;
+  
+  function replacer(match, name) {
+    let options = fillers[name];
+    if (options) {
+      return options[Math.floor(Math.random() * options.length)];
+    } else {
+      return `<UNKNOWN:${name}>`;
     }
-    
-    function generate() {
-      let story = template;
-      while (story.match(slotPattern)) {
-        story = story.replace(slotPattern, replacer);
-      }
-    
-      /* global box */
-      box.innerText = story;
-    }
-    
-    /* global clicker */
-    clicker.onclick = generate;
-    
-    generate();
-    
   }
-}
-
-function main() {
-  // create an instance of the class
-  let myInstance = new MyProjectClass("value1", "value2");
-
-  // call a method on the instance
-  myInstance.myMethod();
+  
+  function generate() {
+    let story = template;
+    while (story.match(slotPattern)) {
+      story = story.replace(slotPattern, replacer);
+    }
+  
+    /* global box */
+    box.innerText = story;
+  }
+  
+  /* global clicker */
+  clicker.onclick = generate;
+  
+  generate();
 }
 
 main();
