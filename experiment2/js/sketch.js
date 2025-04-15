@@ -3,6 +3,7 @@
 // Date: 4/15/25
 
 /* exported setup, draw */
+let canvasContainer;
 let seed = 0;
 let trails = [];
 
