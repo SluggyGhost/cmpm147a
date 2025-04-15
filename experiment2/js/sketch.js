@@ -21,7 +21,7 @@ function setup() {
   canvas.parent("canvas-container");
   $(window).resize(function() {resizeScreen()});
   resizeScreen();
-  createButton("reimagine").mousePressed(() => seed++);
+  $("#reimagine").click(() => seed++);
 }
 
 function draw() {
