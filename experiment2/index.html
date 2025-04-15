@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 2 - Living Impressions</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -45,17 +45,47 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>Create a procedurally generated scene inspired by real life.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>
+					The sky, grass, and even the lake are just simple rectangles, though the lake has rounded corners, with the sharpness of the corners randomly determined. 
+					The mountain range in the background is a custom-shaped polygon. It has parameters to ensure that no slopes are greater than 90 degrees.
+					Additionally, all vertices for this polygon are not in fixed locations, but confined to a small area with randomized values. 
+					The concept of populating an area with randomized object locations was done for the trees and the flowers.
+					However, the trees are actually populating three separate areas in different sizes, to create the illusion of depth. 
+				</p>
+				<p>
+					The most difficult part to implement was definitely the splash trail on the lake. After finding code that created a cursor trail,
+					I then modified it to only create new trails when the cursor is over the lake, and tied the lifetime of the trail objects to a time variable,
+					to ensure that they shrunk and faded consistently.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>
+					I spent a lot of time trying to find the perfect inspirational image. 
+					I looked at images from space, from nature, and from paintings. I tried many search parameters. 
+					And in the end, I went with a photo from Wikipedia. Funny how that worked out. 
+				</p>
+				<p>
+					I actually forgot that there needed to be a custom-shaped polygon in this assignment, and tried to do the mountain range with a row of triangles at first. 
+					It was only after I was satisfied with it that I realized that I needed a non-primitive polygon, and the mountain range was the best fit for it, 
+					similar to the professor's example. So I unfortunately had to scrap that piece of code. I wish I had thought to save it somewhere before I deleted it.
+				</p>
+				<p>
+					The trees and flowers were easy to figure out once I had the code to populate a specific area with objects. 
+					Just make a certain shape tied to a constrained random variable. Not too difficult. 
+					I considered copying the effect that the professor used on the trees in his example on the flowers from mine, 
+					making the effect of flowers in the wind. I decided against it, as I felt it was straying too far from what the original scene was depicting.
+				</p>
+				<p>
+					While it was the hardest part to do, the lake effect is definitely my favorite part of the scene. 
+					It just makes it feel so alive, and I think it turned out really well.
+				</p>
 			</div>
 
 		</section>
