@@ -16,6 +16,13 @@ const flowerColor = "#b29607";
 const skyColor = "#b9dbf7";
 const peaks = 7;
 
+function resizeScreen() {
+  let w = canvasContainer.width();
+  let h = canvasContainer.height();
+  if (h === 0) h = 400;
+  resizeCanvas(w, h);
+}
+
 function setup() {
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
