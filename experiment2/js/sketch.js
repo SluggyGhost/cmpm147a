@@ -1,79 +1,123 @@
 // sketch.js - purpose and description here
-// Author: Your Name
-// Date:
+// Author: Joshua Acosta
+// Date: 4/15/25
 
-// Here is how you might set up an OOP p5.js project
-// Note that p5.js looks for a file called sketch.js
+/* exported setup, draw */
+let seed = 0;
+let trails = [];
 
-// Constants - User-servicable parts
-// In a longer project I like to put these in a separate file
-const VALUE1 = 1;
-const VALUE2 = 2;
+const stoneColor = "#5a698a";
+const grassColor = "#717f30";
+const treeColor = "#2d3828";
+const waterColor = "#426492";
+const splashColor = "#ffffff"
+const flowerColor = "#b29607";
+const skyColor = "#b9dbf7";
+const peaks = 7;
 
-// Globals
-let myInstance;
-let canvasContainer;
-var centerHorz, centerVert;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
-
-function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  // redrawCanvas(); // Redraw everything based on new size
-}
-
-// setup() function is called once when the program starts
 function setup() {
-  // place our canvas, making it fit our container
-  canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
-  canvas.parent("canvas-container");
-  // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-
-  $(window).resize(function() {
-    resizeScreen();
-  });
-  resizeScreen();
+  createCanvas(800, 400);
+  createButton("reimagine").mousePressed(() => seed++);
 }
 
-// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
-
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
-
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
-}
-
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+  randomSeed(seed);  // ensures consistent randomness
+  background(100);
+  
+  noStroke(); // disables outlines for shapes
+  
+  // Add sky and grass
+  fill(skyColor);
+  rect(0, 0, width, height/2);
+  fill(grassColor);
+  rect(0, height/2, width, height/2);
+  
+  // Add the lake
+  fill(waterColor);
+  rect(width/10, height/2, width-width/8, height/4, random(1, 50), random(1, 70), random(1, 100), random(15, 200));
+  
+  // Add the mountains
+  fill(stoneColor);
+  beginShape();
+  vertex(random(-width/5, 0), height/2);
+  for (let i = 1; i <= 2*peaks+1; i++) {
+    let x = (i * width/(2*peaks+1)) - random(3*i, 5*i);
+    if(i % 2 == 1){  // Peaks
+      let y = random(height/12, -height/6);
+      vertex(x, y);
+    }else{          // Valleys
+      let y = random(height*3/8, height/10);
+      vertex(x, y);
+    }
+  }
+  vertex(random(width, width*6/5), height/2);
+  endShape(CLOSE);
+  
+  // Add the flowers
+  fill(flowerColor)
+  const flowers = random(500, 1000);
+  for(let i = 0; i < flowers; i++){
+    let x = width * random();
+    let y = (height*3/4) + random(height/4);
+    ellipse(x, y, height/100);
+  }
+  
+  /*******************************************************************************************
+   * Water glint effect                                                                      *
+   * ----------------------------------------------------------------------------------------*
+   * Code for cursor trail effect: https://editor.p5js.org/MindForCode/sketches/fDEsXqQBS    *
+   * ChatGPT modification: https://chatgpt.com/share/67fe1d23-5318-800c-bfb4-33f359c924eb    *
+   *******************************************************************************************/
+  fill(splashColor);
+  // Add new trail points (if inside the lake)
+  if(mouseX > width/10 && mouseX < width*39/40 && mouseY > height/2 && mouseY < height*3/4){
+    trails.push({
+      pos: createVector(mouseX, mouseY),
+      life: 5.0,
+      size: width/100
+    });
+  }
+  // Update and draw trail points
+  for (let i = trails.length - 1; i >= 0; i--) {
+    let t = trails[i];
+    // Fade and shrink over time
+    t.life -= 0.01;
+    t.size *= 0.98;
+    // Remove if fully faded
+    if (t.life <= 0 || t.size <= 1) {
+      trails.splice(i, 1);
+      continue;
+    }
+    ellipse(t.pos.x, t.pos.y, t.size, t.size/4);
+  }
+  
+  // TREES
+  fill(treeColor);
+  // Far tree line
+  let trees = random(1000,2000);
+  for(let i = 0; i < trees; i++){
+    let x = random(-width/20, width);
+    let y = height/2 - random(height/10);
+    let treeHeight = 20;
+    let treeWidth = 10;
+    triangle(x, y, x+(treeWidth/2), y-treeHeight,x+treeWidth, y);
+  }
+  // Trees left of the lake
+  trees = random(80,100);
+  for(let i = 0; i < trees; i++){
+    let x = random(-width/20, width/10);
+    let y = (height/2) + random(height/4);
+    let treeHeight = 40;
+    let treeWidth = 20;
+    triangle(x, y, x+(treeWidth/2), y-treeHeight,x+treeWidth, y);
+  }
+  // Near tree line
+  trees = random(80,100);
+  for(let i = 0; i < trees; i++){
+    let x = random(-width/20, width);
+    let y = (height*3/4) + random(height/4);
+    let treeHeight = 60;
+    let treeWidth = 30;
+    triangle(x, y, x+(treeWidth/2), y-treeHeight,x+treeWidth, y);
+  }
 }
