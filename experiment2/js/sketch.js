@@ -19,9 +19,11 @@ function setup() {
   canvasContainer = $("#canvas-container");
   let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
-  $(window).resize(function() {resizeScreen()});
+  $(window).resize(function() {
+    resizeScreen();
+  });
   resizeScreen();
-  $("#reimagine").click(() => seed++);
+   $("#reimagine").click(() => seed++);
 }
 
 function draw() {
@@ -125,6 +127,3 @@ function draw() {
     triangle(x, y, x+(treeWidth/2), y-treeHeight,x+treeWidth, y);
   }
 }
-
-setup();
-draw();
