@@ -16,7 +16,11 @@ const skyColor = "#b9dbf7";
 const peaks = 7;
 
 function setup() {
-  createCanvas(800, 400);
+  canvasContainer = $("#canvas-container");
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  canvas.parent("canvas-container");
+  $(window).resize(function() {resizeScreen()});
+  resizeScreen();
   createButton("reimagine").mousePressed(() => seed++);
 }
 
