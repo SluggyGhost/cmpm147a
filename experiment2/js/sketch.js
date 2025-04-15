@@ -125,3 +125,6 @@ function draw() {
     triangle(x, y, x+(treeWidth/2), y-treeHeight,x+treeWidth, y);
   }
 }
+
+setup();
+draw();
