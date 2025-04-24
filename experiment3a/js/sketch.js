@@ -56,8 +56,11 @@ function stringToGrid(str) {
 }
 
 function setup() {
+  numCols = select("#asciiBox").attribute("rows") | 0;
+  numRows = select("#asciiBox").attribute("cols") | 0;
+
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+  let canvas = createCanvas(16*20, 16*20);
   canvas.parent("canvas-container");
   $(window).resize(function() {
     resizeScreen();
@@ -66,6 +69,7 @@ function setup() {
    $("#reimagine").click(() => seed++);
 
   reseed();
+  select("#asciiBox").input(reparseGrid);
 }
 
 function draw() {
@@ -139,8 +143,8 @@ function drawGrid(grid) {
   // Clouds
   let noiseLevel = 255;
   let noiseScale = 0.009;
-  for (let y = 0; y < height; y += 1) {
-    for (let x = 0; x < width; x += 1) {
+  for (let y = 0; y <= 20*16; y += 1) {
+    for (let x = 0; x <= 20*16; x += 1) {
       let nx = noiseScale * x;
       let ny = noiseScale * y;
       let nt = noiseScale * frameCount;
