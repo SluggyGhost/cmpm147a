@@ -66,7 +66,7 @@ function setup() {
     resizeScreen();
   });
   resizeScreen();
-   $("#reimagine").click(() => seed++);
+  $("#reseed").click(reseed);
 
   reseed();
   select("#asciiBox").input(reparseGrid);
