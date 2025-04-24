@@ -56,19 +56,30 @@
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>After the grid is generated, I used the generateRooms() function to create an assortment of randomly placed rooms.
+				<p>
+					After the grid is generated, I used the generateRooms() function to create an assortment of randomly placed rooms.
 					Any connections between rooms are the result of room overlapping. 
 					When the grid is drawn to the screen, placeTile() puts down the correct image, and drawContext() ensures a smooth transition.
 					It does this by looking at the surrounding four tiles (north, east, south, west) and placing down the appropriate image on top of the already drawn tile.
 				</p>
-				<p>Then comes object placement. First I use a loop to place down objects in random positions; trees on top of grass tiles, and houses on top of dirt tiles. 
-					Then I place a single tower. Only one, because placing down two or more caused problems with rendering. Finally, I draw the moving cloud overlay using code from the p5.js references.
+				<p>
+					Then comes object placement. First I use a loop to place down objects in random positions; trees on top of grass tiles, and houses on top of dirt tiles. 
+					Then I place a single tower. Only one, because placing down two or more caused problems with rendering. 
+					Finally, I draw the moving cloud overlay using code from the p5.js references.
+				</p>
+				<p>
+					I am aware there is a large amout of empty space around the rendered image. 
+					I have no idea how to get rid of it.
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>The lookup table took me a while to figure out, but I felt like my progress really sped up once I realized how it worked.</p>
+				<p>
+					The lookup table took me a while to figure out, but I felt like my progress really sped up once I realized how it worked. 
+					Transferring from Glitch to a GitHub repo always seems to take a stupidly long amount of time. 
+					I feel like I keep making the same mistakes, unable to take notes because I finish at stupid hours of the night.
+				</p>
 			</div>
 
 		</section>
