@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment 3 - Alternate Worlds</title>
+	<title>Experiment 3a - Alternate Worlds: Overworld</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -32,7 +32,7 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment 3 - Alternate Worlds</h1>
+			<h1>Experiment 3a - Alternate Worlds: Overworld</h1>
 
 			<div class="minor-section">
 				<div id="canvas-container">
@@ -46,17 +46,26 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>This experiment creates a tile-based overworld map, like the ones commonly found in RPGs. 
+					It places dirt and grass with smooth transition, and draws objects like houses, trees and towers on top.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>After the grid is generated, I used the generateRooms() function to create an assortment of randomly placed rooms.
+					Any connections between rooms are the result of room overlapping. 
+					When the grid is drawn to the screen, placeTile() puts down the correct image, and drawContext() ensures a smooth transition.
+					It does this by looking at the surrounding four tiles (north, east, south, west) and placing down the appropriate image on top of the already drawn tile.
+				</p>
+				<p>Then comes object placement. First I use a loop to place down objects in random positions; trees on top of grass tiles, and houses on top of dirt tiles. 
+					Then I place a single tower. Only one, because placing down two or more caused problems with rendering. Finally, I draw the moving cloud overlay using code from the p5.js references.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>The lookup table took me a while to figure out, but I felt like my progress really sped up once I realized how it worked.</p>
 			</div>
 
 		</section>
