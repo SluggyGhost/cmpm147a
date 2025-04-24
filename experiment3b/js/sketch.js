@@ -9,6 +9,7 @@ let seed = 0;
 let tilesetImage;
 let currentGrid = [];
 let numRows, numCols;
+let lightRadius = 100;
 
 function preload() {
   tilesetImage = loadImage(
@@ -108,53 +109,31 @@ function generateGrid(numCols, numRows) {
 function drawGrid(grid) {
   background(128);
 
-  // Ground
+  // Background
   for(let i = 0; i < grid.length; i++) {
     for(let j = 0; j < grid[i].length; j++) {
       if(gridCheck(grid, i, j, '_')){
-        placeTile(i, j, random(4) | 0, 0);
-        // drawContext(grid, i, j, '.', 5, 4);
+        placeTile(i, j, 10, 22);
       } else {
-        placeTile(i, j, random(4) | 0, 3);
-        drawContext(grid, i, j, '_', 5, 1);
+        placeTile(i, j, 10, 23);
+        drawContext(grid, i, j, '_', 6, 22);
       }
     }
   }
   
-  // Objects
-  let maxObjects = 30;
+  // Objects & Interactibles
+  let maxObjects = 15;
   for(let i = 0; i < maxObjects; i++){
     let row = floor(random(grid.length));
     let col = floor(random(grid[0].length));
-    if(gridCheck(grid, row, col, '_')){
-      placeTile(row,col,14,0);  // Tree (on the grass)
+    if(gridCheck(grid, row-1, col, '_') && gridCheck(grid, row, col, '.')){
+      placeTile(row,col,5,27);  // Doorway
     } else if (gridCheck(grid, row, col, '.')){
-      placeTile(row,col,26,floor(random(4)));  // House
+      placeTile(row,col,3,28);  // Chest
     }
   }
   
-  // Tower (2 tile object)
-  let towerType = 28 + floor(random(3));
-  let row = floor(random(grid.length));
-  let col = floor(random(grid[0].length));
-  placeTile(row+1,col,towerType,1);// Tower base
-  placeTile(row,col,towerType,0);  // Tower top
-  
-  // Clouds
-  let noiseLevel = 255;
-  let noiseScale = 0.009;
-  for (let y = 0; y <= 20*16; y += 1) {
-    for (let x = 0; x <= 20*16; x += 1) {
-      let nx = noiseScale * x;
-      let ny = noiseScale * y;
-      let nt = noiseScale * frameCount;
-
-      let c = noiseLevel * noise(nx, ny, nt);
-
-      stroke(c,c,c,180);
-      point(x, y);
-    }
-  }
+  drawDarknessOverlay();
 }
 
 function generateRooms(grid, maxRooms){
@@ -215,13 +194,23 @@ const lookup = [  // [right/left,down/up]
   [1,0],   //  4, code:0100
   [0,0],   //  5, code:0101
   [1,1],   //  6, code:0110
-  [0,0],    //  7, code:0111, NO TILE
-  [0,-1],  //  8, code:1000
-  [-1,-1], //  9, code:1001
+  [0,0],   //  7, code:0111, NO TILE
+  [-5,-1],  //  8, code:1000
+  [-5,-1], //  9, code:1001
   [0,0],    // 10, code:1010
   [0,0],    // 11, code:1011, NO TILE
-  [1,-1],  // 12, code:1100
-  [0,0],    // 13, code:1101, NO TILE
-  [0,0],    // 14, code:1110, NO TILE
+  [-5,-1],  // 12, code:1100
+  [0,0],   // 13, code:1101, NO TILE
+  [0,0],   // 14, code:1110, NO TILE
   [0,0]    // 15, code:1111
 ];
+
+function drawDarknessOverlay() {
+  let darkness = createGraphics(width, height);
+  darkness.background(0);
+  darkness.noStroke();
+  darkness.erase();
+  darkness.ellipse(mouseX, mouseY, lightRadius * 2);
+  darkness.noErase();
+  image(darkness, 0, 0);
+}

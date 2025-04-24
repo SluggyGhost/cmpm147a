@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment 3a - Alternate Worlds: Overworld</title>
+	<title>Experiment 3a - Alternate Worlds: Dungeon</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -32,7 +32,7 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment 3a - Alternate Worlds: Overworld</h1>
+			<h1>Experiment 3a - Alternate Worlds: Dungeon</h1>
 
 			<div class="minor-section">
 				<button id="reseed">reseed</button>
@@ -49,23 +49,23 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>This experiment creates a tile-based overworld map, like the ones commonly found in RPGs. 
-					It places dirt and grass with smooth transition, and draws objects like houses, trees and towers on top.
+				<p>This experiment creates a tile-based dungeon map, like the ones commonly found in RPGs. 
+					It places walls and floors with smooth transition, and draws objects like treasure chests and doorways on top.
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
 				<p>
-					After the grid is generated, I used the generateRooms() function to create an assortment of randomly placed rooms.
+					After the grid is generated, I used the generateRooms() function to create an assortment of randomly placed floorspaces.
 					Any connections between rooms are the result of room overlapping. 
 					When the grid is drawn to the screen, placeTile() puts down the correct image, and drawContext() ensures a smooth transition.
 					It does this by looking at the surrounding four tiles (north, east, south, west) and placing down the appropriate image on top of the already drawn tile.
 				</p>
 				<p>
-					Then comes object placement. First I use a loop to place down objects in random positions; trees on top of grass tiles, and houses on top of dirt tiles. 
-					Then I place a single tower. Only one, because placing down two or more caused problems with rendering. 
-					Finally, I draw the moving cloud overlay using code from the p5.js references.
+					Then comes object placement. First I use a loop to place down objects in random positions; chests on top of floor tiles, and doorways on floorspace below wall tiles. 
+					The circle of light following the cursor is done by calling drawDarknessOverlay(), 
+					which creates a black background on top of the rendered image, and an ellipse that can erase it following the cursor.
 				</p>
 				<p>
 					I am aware there is a large amout of empty space around the rendered image. 
@@ -76,9 +76,9 @@
 			<div class="minor-section">
 				<h2>Reflection</h2>
 				<p>
-					The lookup table took me a while to figure out, but I felt like my progress really sped up once I realized how it worked. 
-					Transferring from Glitch to a GitHub repo always seems to take a stupidly long amount of time. 
-					I feel like I keep making the same mistakes, unable to take notes because I finish at stupid hours of the night.
+					This one took a little bit less time to do, since I could copy many methods from 3a. 
+					Transferring from Glitch to a GitHub repo still seems to take a long time. 
+					I hope to speed up that process by doing what I did here, copying a working project and editing it to my needs.
 				</p>
 			</div>
 
