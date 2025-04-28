@@ -19,6 +19,7 @@ function p3_preload() {}
 function p3_setup() {}
 
 let worldSeed;
+let colorNoiseScale = 0.05;  // Controls 'zoom' of color noise
 
 function p3_worldKeyChanged(key) {
   worldSeed = XXH.h32(key, 0);
@@ -44,39 +45,15 @@ function p3_tileClicked(i, j) {
 
 function p3_drawBefore() {}
 
-let anchorSpacing = 10;  // every 10 tiles all directions
-let anchorCache = {};    // memoization to store anchor colors
-
-function getAnchorColor(ai, aj) {
-  let key = `${ai},${aj}`;
-  if(anchorCache[key]) return anchorCache[key];
-  
-  let hash = XXH.h32("anchor:" + [ai,aj], worldSeed);
-  randomSeed(hash);
-  
-  let r = random(100, 255);
-  let g = random(100, 255);
-  let b = random(100, 255);
-  
-  anchorCache[key] = [r, g, b];
-  return anchorCache[key];
-}
-
 function p3_drawTile(i, j) {
   noStroke();
   
-  // Find the anchor tile nearest this tile
-  let ai = Math.round(i / anchorSpacing) * anchorSpacing;
-  let aj = Math.round(j / anchorSpacing) * anchorSpacing;
+  // Sample three different noise fields for R, G, B
+  let r = noise(i * colorNoiseScale, j * colorNoiseScale) * 255;
+  let g = noise((i+1000) * colorNoiseScale, (j+1000) * colorNoiseScale) * 255;
+  let b = noise((i+2000) * colorNoiseScale, (j+2000) * colorNoiseScale) * 255;
   
-  let [r, g, b] = getAnchorColor(ai, aj);
-  
-  // Distance from anchor (used to darken farther tiles)
-  let dist = Math.hypot(i - ai, j - aj);
-  let brightness = map(dist, 0, anchorSpacing * 2, 1.0, 0.6);
-  brightness = constrain(brightness, 0.6, 1.0);
-  
-  fill(r * brightness, g * brightness, b * brightness, 255);
+  fill(r, g, b);
 
   push();
   beginShape();
@@ -85,6 +62,17 @@ function p3_drawTile(i, j) {
   vertex(tw, 0);
   vertex(0, -th);
   endShape(CLOSE);
+  pop();  
+
+  let n = clicks[[i, j]] | 0;
+  if (n % 2 == 1) {
+    fill(0, 0, 0, 32);
+    ellipse(0, 0, 10, 5);
+    translate(0, -10);
+    fill(255, 255, 100, 128);
+    ellipse(0, 0, 10, 10);
+  }
+
   pop();
 }
 
