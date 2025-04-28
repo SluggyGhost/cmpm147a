@@ -66,7 +66,10 @@ function p3_drawTile(i, j) {
   if (img) {
     push();
     imageMode(CENTER);
-    image(img, 0, 0, tw * 2, th * 2); // size images to match tilesize
+    
+    let imgWidth = tw * 2;
+    let imgHeight = th * 3.5;  // Vertical stretch
+    image(img, 0, th * 0.6, imgWidth, imgHeight);
     pop();
   } else {
     // fallback in case image didn't load
