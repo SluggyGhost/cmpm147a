@@ -92,8 +92,6 @@ function p3_drawTile(i, j) {
     fill(255, 255, 100, 128);
     ellipse(0, 0, 10, 10);
   }
-
-  pop();
 }
 
 function p3_drawSelectedTile(i, j) {

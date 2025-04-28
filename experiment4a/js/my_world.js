@@ -53,7 +53,13 @@ function p3_drawTile(i, j) {
   let g = noise((i+1000) * colorNoiseScale, (j+1000) * colorNoiseScale) * 255;
   let b = noise((i+2000) * colorNoiseScale, (j+2000) * colorNoiseScale) * 255;
   
-  fill(r, g, b);
+  let n = clicks[[i, j]] | 0;
+  if (n % 2 == 1) {
+    // If clicked, invert the colors
+    fill(255 - r, 255 - g, 255 - b);
+  } else {
+    fill(r, g, b);
+  }
 
   push();
   beginShape();
@@ -62,17 +68,6 @@ function p3_drawTile(i, j) {
   vertex(tw, 0);
   vertex(0, -th);
   endShape(CLOSE);
-  pop();  
-
-  let n = clicks[[i, j]] | 0;
-  if (n % 2 == 1) {
-    fill(0, 0, 0, 32);
-    ellipse(0, 0, 10, 5);
-    translate(0, -10);
-    fill(255, 255, 100, 128);
-    ellipse(0, 0, 10, 10);
-  }
-
   pop();
 }
 
