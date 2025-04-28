@@ -15,10 +15,12 @@
 */
 
 let terrainImages = {};
+let environmentImages = {};
 
 function p3_preload() {
   terrainImages["grass"] = loadImage("https://cdn.glitch.global/c5f1910d-1aff-4d76-84d7-10fce56f3cd2/grass.png?v=1745739720365");
   terrainImages["ground"] = loadImage("https://cdn.glitch.global/c5f1910d-1aff-4d76-84d7-10fce56f3cd2/ground(1).png?v=1745739686473");
+  environmentImages["tree3"] = loadImage("https://cdn.glitch.global/900767f7-2bf7-4824-897c-0abfa47d586e/tree(3).png?v=1745817909496");
 }
 
 function p3_setup() {}
@@ -86,11 +88,22 @@ function p3_drawTile(i, j) {
 
   let n = clicks[[i, j]] | 0;
   if (n % 2 == 1) {
-    fill(0, 0, 0, 32);
-    ellipse(0, 0, 10, 5);
-    translate(0, -10);
-    fill(255, 255, 100, 128);
-    ellipse(0, 0, 10, 10);
+    // fill(0, 0, 0, 32);
+    // ellipse(0, 0, 10, 5);
+    // translate(0, -10);
+    // fill(255, 255, 100, 128);
+    // ellipse(0, 0, 10, 10);
+    
+    // draw a tree
+    if (environmentImages["tree3"]) {
+      push();
+      imageMode(CENTER);
+      
+      let imgWidth = tw;
+      let imgHeight = th * 3; // Taller to look like a tree
+      image(environmentImages["tree3"], 0, -th * 1.2, imgWidth, imgHeight); // Moved up
+      pop();
+    }
   }
 }
 
