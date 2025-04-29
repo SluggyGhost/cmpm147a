@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment 4a - Infinite Worlds: Gradient</title>
+	<title>Experiment 4b - Infinite Worlds: Superflat</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -32,15 +32,19 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment 4a - Infinite Worlds: Gradient</h1>
+			<h1>Experiment 4b - Infinite Worlds: Superflat</h1>
 
 			<div class="minor-section">
-				<button id="reseed">reseed</button>
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
-				<div class="fullscreen-box">
-                    <button id="fullscreen">Fullscreen</button>
+				<div class="fullscreen-box instructions">
+                    <div>Arrow keys scroll. Clicking changes tiles.</div>
+					<div>
+						World seed: 
+						<input type="text" id="world-seed" value="xyzzy">
+					</div>
+					<button id="fullscreen">Fullscreen</button>
                 </div>
 			</div>
 
@@ -54,19 +58,28 @@
 				<h3>Variation in Space</h3>
 				<p>As the audience browses my world, they’ll see variations in ground type and naturally generated rocks and trees.</p>
 				<h3>Variation in Key</h3>
-				<p></p>
+				<p>Different worlds will have different generation patterns. The generation of stones and trees is directly tied to the world seed.</p>
 				<h3>Signs of Life</h3>
-				<p></p>
+				<p>Clicking tiles causes a house to be placed on the tile, if the tile is empty. 
+					Repeated clicks changes the color of the roof, and eventually removes the house. 
+					This information is retained; if the world seed changes, tiles that were clicked on, but had an obstacle present, may now be empty save for a house. 
+					This also works in the opposite direction; if a house tile now has an obstacle due to a change in world seed, the house will be replaced with the natural object.</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p></p>
+				<p>Just getting the images to show up on the grid took a bit of finagling. 
+					I also had to mess with the proportions of the image to ensure that it aligned to the grid properly, 
+					which took a lot of messing around with the specific proportions. 
+					This was repeated for each sprite image, due to the variety of shapes and sizes.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p></p>
+				<p>This one was much harder than the first one in comparison. 
+					I had to make this one much more simple than I originally envisioned.
+				</p>
 			</div>
 
 		</section>

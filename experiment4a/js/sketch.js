@@ -61,7 +61,7 @@ function preload() {
 
 function setup() {
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(800, 400);
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
 
   $(window).resize(function() {
