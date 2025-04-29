@@ -56,20 +56,35 @@ function stringToGrid(str) {
 }
 
 function setup() {
-  numCols = select("#asciiBox").attribute("rows") | 0;
-  numRows = select("#asciiBox").attribute("cols") | 0;
-
   canvasContainer = $("#canvas-container");
-  let canvas = createCanvas(16*20, 16*20);
+  let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
+
   $(window).resize(function() {
     resizeScreen();
   });
   resizeScreen();
-  $("#reseed").click(reseed);
 
-  reseed();
-  select("#asciiBox").input(reparseGrid);
+  camera_offset = new p5.Vector(-width / 2, height / 2);
+  camera_velocity = new p5.Vector(0, 0);
+
+  if (window.p3_setup) {
+    window.p3_setup();
+  }
+
+  let label = createP();
+  label.html("World key: ");
+  label.parent("fullscreen-box instructions");
+
+  let input = createInput("xyzzy");
+  input.parent(label);
+  input.input(() => {
+    rebuildWorld(input.value());
+  });
+
+  createP("Arrow keys scroll. Clicking changes tiles.").parent("container");
+
+  rebuildWorld(input.value());
 }
 
 function draw() {
