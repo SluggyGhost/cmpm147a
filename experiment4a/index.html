@@ -37,18 +37,16 @@
 					<!-- canvas will be added here -->
 				</div>
 				<div id="fullscreen-box-instructions">
-                    <div>Arrow keys scroll. Clicking changes tiles.</div>
-					<div>
-						World seed: 
-						<input type="text" id="world-seed" value="xyzzy">
-					</div>
-					<button id="fullscreen">Fullscreen</button>
+					<!-- text goes here -->
+                </div>
+				<div class="fullscreen-box">
+                    <button id="fullscreen">Fullscreen</button>
                 </div>
 			</div>
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>This program </p>
+				<p>This program creates an infinite color gradient.</p>
 				<img src="https://cdn.glitch.global/c5f1910d-1aff-4d76-84d7-10fce56f3cd2/6454672.jpg?v=1745873992778" height="100%" width="100%"></img>
 				<a href="https://pixy.org/6454672/">Source</a>
 				<h3>Infinity</h3>
@@ -64,14 +62,20 @@
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p></p>
+				<p>A lot of the foundational work is done by <b>engine.js</b>, which is unchanged save for the canvas container names. 
+					All of my changes in the code were done in <b>my_world.js</b>. 
+					When drawing tiles, the code samples three different noise fields to get RGB values. 
+					These values are multiplied by the colorNoiseScale, which is a low number, to result in a smooth gradient. 
+					Changing the click effect was also simple. I changed the color to its complement by inverting the RGB values (255 - value).
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
 				<p>This was the one that I did first, to help me figure out how the program works. 
 					It took a bit of work to try and find how to change the color according to the noise values. 
-					Compared to that, replacing the clicked tile with the complement color was much easier.</p>
+					Compared to that, replacing the clicked tile with the complement color was much easier. 
+					It's not too flashy an effect, but I like the smooth colors. They remind me of brushstrokes of paintings.</p>
 			</div>
 
 		</section>
