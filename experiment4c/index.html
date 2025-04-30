@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 4b - Infinite Worlds: Superflat</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+experiment4b copy	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+    <script src="js/xxhash.min.js" defer></script>
+    <script src="js/engine.js" defer></script>
+    <script src="js/my_world.js" defer></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+
+			<h1>Experiment 4b - Infinite Worlds: Superflat</h1>
+
+			<div class="minor-section">
+				<div id="canvas-container">
+					<!-- canvas will be added here -->
+				</div>
+				<div id="fullscreen-box-instructions">
+					<!-- Text goes here -->
+                </div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Description</h2>
+				<p>This program creates an infinite tilemap populated with terrain and environment sprites.</p>
+				<img src="https://cdn.glitch.global/900767f7-2bf7-4824-897c-0abfa47d586e/JuWBO.png?v=1745875130218" height="100%" width="100%"></img>
+				<a href="https://www.minecraftforum.net/forums/minecraft-java-edition/recent-updates-and-snapshots/378480-1-4-lots-and-lots-of-superflat-codes">Source</a>
+				<h3>Infinity</h3>
+				<p>I used the infinite extent of my world to represent a superflat minecraft world. 
+					In minecraft, all worlds are theoreticially infinite, as the edge is impossible to reach. So it is with this one. 
+					It is called 'superflat' because there is no terrain elevation; everything is on a plane of flat ground.
+				</p>
+				<h3>Variation in Space</h3>
+				<p>As the audience browses my world, they’ll see variations in ground type (dirt and grass) and natural objects (rocks and trees).</p>
+				<h3>Variation in Key</h3>
+				<p>Different worlds will have different generation patterns. The generation of stones and trees is directly tied to 
+					the world seed.</p>
+				<h3>Signs of Life</h3>
+				<p>Clicking tiles causes a house to be placed on the tile, if the tile is empty. Repeated clicks changes the color 
+					of the roof, and eventually removes the house. This information is retained; if the world seed changes, tiles that 
+					were clicked on, but had an obstacle present, may now be empty save for a house. This also works in the opposite 
+					direction; if a house tile now has an obstacle due to a change in world seed, the house will be replaced with the 
+					natural object.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p>Most of the heavy lifting is done by engine.js. It uses a complicated hash algorithm, along with p5.js functions 
+					randomSeed() and noiseSeed(), to create randomness. This randomness (and the world seed) is used to place the terrain and natural objects. 
+					The house placement keeps track of the number of clicks to place a house. No house sprite is placed if a natural decoration exists on that tile.</p>
+				<p>Just getting the images to show up on the grid took a bit of finagling. 
+					I also had to mess with the proportions of the image to ensure that it aligned to the grid properly, 
+					which took a lot of messing around with the specific proportions. 
+					This was repeated for each sprite image, due to the variety of shapes and sizes.
+				</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>This one was much harder than the first one in comparison. 
+					I had to make this one much more simple than I originally envisioned.
+				</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<!-- Put link back to homepage here. -->
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+		</nav>
+	</main>
+</body>
+</html>
