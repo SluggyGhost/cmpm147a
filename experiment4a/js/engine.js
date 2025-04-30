@@ -63,7 +63,7 @@ function preload() {
 
 function setup() {
   let canvas = createCanvas(800, 400);
-  canvas.parent("container");
+  canvas.parent("canvas-container");
 
   camera_offset = new p5.Vector(-width / 2, height / 2);
   camera_velocity = new p5.Vector(0, 0);
@@ -74,7 +74,7 @@ function setup() {
 
   let label = createP();
   label.html("World key: ");
-  label.parent("container");
+  label.parent("fullscreen-box-instructions");
 
   let input = createInput("xyzzy");
   input.parent(label);
@@ -82,7 +82,7 @@ function setup() {
     rebuildWorld(input.value());
   });
 
-  createP("Arrow keys scroll. Clicking changes tiles.").parent("container");
+  createP("Arrow keys scroll. Clicking changes tiles.").parent("fullscreen-box-instructions");
 
   rebuildWorld(input.value());
 }

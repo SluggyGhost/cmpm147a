@@ -27,9 +27,85 @@ function setup() {
   camera_offset = new p5.Vector(-width / 2, height / 2);
   camera_velocity = new p5.Vector(0, 0);
 
+  let label = createP();
+  label.html("World key: ");
+  label.parent("container");
+
+  let input = createInput("xyzzy");
+  input.parent(label);
+  input.input(() => {
+    rebuildWorld(input.value());
+  });
+
   rebuildWorld(input.value());
 }
 
+function draw() {
+  // Keyboard controls!
+  if (keyIsDown(LEFT_ARROW)) {
+    camera_velocity.x -= 1;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    camera_velocity.x += 1;
+  }
+  if (keyIsDown(DOWN_ARROW)) {
+    camera_velocity.y -= 1;
+  }
+  if (keyIsDown(UP_ARROW)) {
+    camera_velocity.y += 1;
+  }
+
+  let camera_delta = new p5.Vector(0, 0);
+  camera_velocity.add(camera_delta);
+  camera_offset.add(camera_velocity);
+  camera_velocity.mult(0.95); // cheap easing
+  if (camera_velocity.mag() < 0.01) {
+    camera_velocity.setMag(0);
+  }
+
+  let world_pos = screenToWorld(
+    [0 - mouseX, mouseY],
+    [camera_offset.x, camera_offset.y]
+  );
+  let world_offset = cameraToWorldOffset([camera_offset.x, camera_offset.y]);
+
+  background(100);
+
+  if (window.p3_drawBefore) {
+    window.p3_drawBefore();
+  }
+
+  let overdraw = 0.1;
+
+  let y0 = Math.floor((0 - overdraw) * tile_rows);
+  let y1 = Math.floor((1 + overdraw) * tile_rows);
+  let x0 = Math.floor((0 - overdraw) * tile_columns);
+  let x1 = Math.floor((1 + overdraw) * tile_columns);
+
+  for (let y = y0; y < y1; y++) {
+    for (let x = x0; x < x1; x++) {
+      drawTile(tileRenderingOrder([x + world_offset.x, y - world_offset.y]), [
+        camera_offset.x,
+        camera_offset.y
+      ]); // odd row
+    }
+    for (let x = x0; x < x1; x++) {
+      drawTile(
+        tileRenderingOrder([
+          x + 0.5 + world_offset.x,
+          y + 0.5 - world_offset.y
+        ]),
+        [camera_offset.x, camera_offset.y]
+      ); // even rows are offset horizontally
+    }
+  }
+
+  describeMouseTile(world_pos, [camera_offset.x, camera_offset.y]);
+
+  if (window.p3_drawAfter) {
+    window.p3_drawAfter();
+  }
+}
 
 /////////////////////////////
 // Transforms between coordinate systems
@@ -98,73 +174,6 @@ function mouseClicked() {
     window.p3_tileClicked(world_pos[0], world_pos[1]);
   }
   return false;
-}
-
-function draw() {
-  // Keyboard controls!
-  if (keyIsDown(LEFT_ARROW)) {
-    camera_velocity.x -= 1;
-  }
-  if (keyIsDown(RIGHT_ARROW)) {
-    camera_velocity.x += 1;
-  }
-  if (keyIsDown(DOWN_ARROW)) {
-    camera_velocity.y -= 1;
-  }
-  if (keyIsDown(UP_ARROW)) {
-    camera_velocity.y += 1;
-  }
-
-  let camera_delta = new p5.Vector(0, 0);
-  camera_velocity.add(camera_delta);
-  camera_offset.add(camera_velocity);
-  camera_velocity.mult(0.95); // cheap easing
-  if (camera_velocity.mag() < 0.01) {
-    camera_velocity.setMag(0);
-  }
-
-  let world_pos = screenToWorld(
-    [0 - mouseX, mouseY],
-    [camera_offset.x, camera_offset.y]
-  );
-  let world_offset = cameraToWorldOffset([camera_offset.x, camera_offset.y]);
-
-  background(100);
-
-  if (window.p3_drawBefore) {
-    window.p3_drawBefore();
-  }
-
-  let overdraw = 0.1;
-
-  let y0 = Math.floor((0 - overdraw) * tile_rows);
-  let y1 = Math.floor((1 + overdraw) * tile_rows);
-  let x0 = Math.floor((0 - overdraw) * tile_columns);
-  let x1 = Math.floor((1 + overdraw) * tile_columns);
-
-  for (let y = y0; y < y1; y++) {
-    for (let x = x0; x < x1; x++) {
-      drawTile(tileRenderingOrder([x + world_offset.x, y - world_offset.y]), [
-        camera_offset.x,
-        camera_offset.y
-      ]); // odd row
-    }
-    for (let x = x0; x < x1; x++) {
-      drawTile(
-        tileRenderingOrder([
-          x + 0.5 + world_offset.x,
-          y + 0.5 - world_offset.y
-        ]),
-        [camera_offset.x, camera_offset.y]
-      ); // even rows are offset horizontally
-    }
-  }
-
-  describeMouseTile(world_pos, [camera_offset.x, camera_offset.y]);
-
-  if (window.p3_drawAfter) {
-    window.p3_drawAfter();
-  }
 }
 
 // Display a discription of the tile at world_x, world_y.
