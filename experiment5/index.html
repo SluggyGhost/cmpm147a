@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- This title is used for tabs and bookmarks -->
+	<title>Experiment 5 - Evolutionary Impressions</title>
+
+	<!-- Use UTF character set, a good idea with any webpage -->
+	<meta charset="UTF-8" />
+	<!-- Set viewport so page remains consistently scaled w narrow devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
+	<link rel="stylesheet" type="text/css" href="../css/site.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<!-- Load jQuery library -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+	<!-- Load p5.js library -->
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+    <script src="js/sketch.js" defer></script>
+    <script src="js/my_design.js" defer></script>
+</head>
+<body>
+	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
+	<main id="content">
+		<section>
+
+			<h1>Experiment 5 - Evolutionary Impressions</h1>
+
+			<div class="minor-section">
+				<div id="canvas-container">
+					<!-- canvas will be added here -->
+				</div>
+				<div id="fullscreen-box-instructions">
+					<!-- Text goes here -->
+                </div>
+			</div>
+
+			<div class="minor-section">
+				<h2>Description</h2>
+				<p>This program creates an infinite tilemap populated with terrain and environment sprites. It is an evolution of Experiment 4b.</p>
+				<img src="https://cdn.glitch.global/97608490-4d28-492f-872c-0c89922a8a3d/maxresdefault.jpg?v=1745907294359" height="100%" width="100%">
+				<a href="https://www.jintube.com/16/?idx=20">Source</a>
+				<h3>Infinity</h3>
+				<p>I used the infinite extent of my world to represent a  minecraft world. 
+					In minecraft, all worlds are theoreticially infinite, as the edge is impossible to reach. So it is with this one.
+				</p>
+				<h3>Variation in Space</h3>
+				<p>As the audience browses my world, they’ll see variations in ground type (dirt, grass and water) and natural objects (rocks and trees).</p>
+				<h3>Variation in Key</h3>
+				<p>Different worlds will have different generation patterns. The generation of terrain and objects are directly tied to 
+					the world seed.</p>
+				<h3>Signs of Life</h3>
+				<p>Clicking tiles causes a building to be placed on the tile, if the tile is empty. Repeated clicks changes the building, 
+					and eventually removes it. It cycles through three styles of houses, a smithy, a windmill, and a tower. 
+					The smithy releases puffs of smoke at regular intervals, and the mill's blades spin in unseen wind. 
+					Building placement information is retained; if the world seed changes, tiles that 
+					were clicked on, but had an obstacle present, may now be empty save for a building. This also works in the opposite 
+					direction; if a building tile now has an obstacle due to a change in world seed, the building will be replaced with the 
+					natural object.</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Technical</h2>
+				<p>Most of the heavy lifting is done by engine.js. It uses a complicated hash algorithm, along with p5.js functions 
+					randomSeed() and noiseSeed(), to create randomness. This randomness (and the world seed) is used to place the terrain and natural objects. 
+					The house placement keeps track of the number of clicks to place a house. No house sprite is placed if a natural decoration exists on that tile.
+					Just getting the images to show up on the grid took a bit of finagling. </p>
+				<p>
+					I also had to mess with the proportions of the image to ensure that it aligned to the grid properly, 
+					which took a lot of messing around with the specific proportions. 
+					This was repeated for each sprite image, due to the variety of shapes and sizes.
+					The mill blades and smoke puff both work off of the frame count. The puff moves up and down on a sine wave, 
+					while the blades swap between two still images repeatedly, creating the illusion of movement.
+				</p>
+			</div>
+
+			<div class="minor-section">
+				<h2>Reflection</h2>
+				<p>As this was the final one created, I was able to bring in a bit more of what I wanted the minecraft generator to be. 
+					I brought in elevation and more buildings. Unfortunately, I ran out of time for my more ambitious additions, 
+					such as binding certain building types to hotkeys, or multi-tile structures like castles, lakes, rives and roads. 
+					Still, I think I'm overall satisfied with how I did. Though I definitely would have moved the sprite placement to a 
+					separate function, if I did this one (and the previous one) again.
+				</p>
+			</div>
+
+		</section>
+		<nav id="links" class="minor-section">
+			<!-- Put link back to homepage here. -->
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+            </ul>
+		</nav>
+	</main>
+</body>
+</html>
